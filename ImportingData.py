@@ -1,38 +1,33 @@
 from openpyxl import Workbook
 import requests
-
-def getPriceOfCrypto():
-  url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
-  par={
+import calendar
+from datetime import date
+url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
+par={
      'symbol' : 'BTC, ETH, GALA' ,
      'convert' : 'USD'
-  }
-  headers = {
+    }
+headers = {
      'Accepts': 'application/json',
      'X-CMC_PRO_API_KEY': '634562be-a173-41d3-8c5d-e4229f52baea'
-  }
+    }
 
-  response = requests.get(url, headers=headers, params=par)
+response = requests.get(url, headers=headers, params=par)
 
-  data = response.json()
+data = response.json()
 
-  btc = round(data['data']['BTC']['quote']['USD']['price'], 2)
-  eth = round(data['data']['ETH']['quote']['USD']['price'], 2)
-  gal = round(data['data']['GALA']['quote']['USD']['price'], 5)
+btc = round(data['data']['BTC']['quote']['USD']['price'], 2)
+eth = round(data['data']['ETH']['quote']['USD']['price'], 2)
+gal = round(data['data']['GALA']['quote']['USD']['price'], 5)
 
-  btcpriceIvan = btc*0.001 
-  galaamount = gal*630.8
-  ethamount = eth*0.05227
-  hole_amount = round(btcpriceIvan+galaamount+ethamount, 2)
-
-
+btcpriceIvan = btc*0.001 
+galaamount = gal*630.8
+ethamount = eth*0.05227
+hole_amount = round(btcpriceIvan+galaamount+ethamount, 2)
 
 
-
-
-
-
-
+dateC = date.today()
+print(dateC)
 wb = Workbook()
 ws = wb.active
 ws.title = 'chart'
